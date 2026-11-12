@@ -1,0 +1,36 @@
+PROYECTO DE ANÁLISIS DE FÚTBOL
+
+¿De qué trata este proyecto?
+Este proyecto lo hice juntando varios archivos de datos de fútbol (los archivos CSV) para poder investigar que tan buenos son los jugadores  en comparacion con lo que valen en el mercado. El objetivo es calcular cuántos goles o asistencias da un jugador por cada millón que vale, para encontrar de forma automática a los jugadores que rinden mucho y son baratos (las gangas) y a los delanteros que costaron una millonada pero no meten goles (los sobrevalorados).
+
+
+¿Qué librerías usé?
+Para hacer todo esto usé tres librerías de Python que instalé en la terminal:
+• Pandas: La usé para cargar los archivos CSV, limpiarlos y hacer todas las operaciones matemáticas.
+• Matplotlib y Seaborn: Las usé para hacer los gráficos.
+
+
+¿Cómo funciona el código paso a paso?
+
+Paso 1: Cargar y limpiar la información
+El código empieza abriendo tres archivos CSV: uno con los nombres de los jugadores, otro con su historial de precios y otro con los partidos que han jugado. Lo primero que hace es arreglar las fechas de nacimiento que venían rotas y calcular la edad que tiene cada jugador restando el año de nacimiento al año en el que estamos.
+
+Paso 2: Juntar las tablas (Merge)
+Como la información viene separada en tres archivos diferentes, usé la función "merge" de Pandas para unirlo todo usando el número de ID de cada jugador. Para que la tabla quede limpia, sumé todos los goles y asistencias que un jugador hizo en su carrera y busqué cuál fue el precio más alto que llegó a valer en el mercado. A los jugadores que no tenían datos de goles o asistencias, les puse un 0 para que el código no falle.
+
+
+Paso 3: Traducir y crear mis propias métricas
+Las posiciones de los jugadores venían en inglés (Attack, Midfield, Defender, Goalkeeper), así que hice un bucle "for" y unos "if" sencillos para traducirlas a español: Delantero, Mediocampista, Defensa y Portero.
+Después creé dos columnas nuevas en la tabla:
+• Impacto ofensivo: Que es simplemente sumar los goles totales más las asistencias totales de cada jugador.
+• Eficiencia por millón: Que divide esa suma de goles entre lo que vale el jugador para ver qué tan rentable es.
+
+
+Paso 4: Los gráficos de cajas y puntos
+Para ver los datos de forma visual, hice unos gráficos que mezclan dos estilos: el "boxplot" (que es un gráfico de cajas que te dice dónde se concentra la mayoría de los jugadores) y el "stripplot" (que dibuja a cada jugador como si fuera un puntito transparente). Al poner los puntos transparentes, si hay muchos jugadores acumulados en una zona, esa parte del gráfico se ve más oscura. Hice gráficos para ver cuánto valen los jugadores según su posición y otro para ver qué posiciones atacan más.
+
+
+Paso 5: Los reportes del Top 5
+Al final del código, puse un filtro para quedarme solo con los jugadores que valen más de 10 millones y que tengan mínimo 5 goles o asistencias, para analizar solo a los jugadores conocidos. El código saca dos listas por la pantalla de la consola de forma ordenada:
+• Las Gangas: Los 5 jugadores con mejor relación goles/precio.
+• Los Sobrevalorados: Los 5 delanteros o mediocampistas con peor relación goles/precio.
